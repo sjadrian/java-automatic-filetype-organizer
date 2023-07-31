@@ -14,7 +14,6 @@ Every a few months I need to spend some time to organize my files in my download
 4. Creation of Subdirectories: Once the files are categorized, the program will create subdirectories (folders) for each unique file extension.
 5. Moving Files: The program will then move each file to its corresponding subdirectory based on its file extension.
 6. Automation: The Java File Sorter program will provide automation, allowing the user to run it whenever needed without manual intervention.
-7. Ease of Use: It will have a user-friendly interface or command-line interface, making it easy for users to specify the target directory and initiate the sorting process.
   
 
 ## How to Use this Project
