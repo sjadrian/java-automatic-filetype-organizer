@@ -8,9 +8,7 @@ import java.util.Properties;
 
 public class Main {
 
-//    private static final String downloadPath =  getDownloadDirectoryData();
-    private static final String downloadPath =  "D:\\Downloads\\";
-
+    private static final String downloadPath =  getDownloadDirectoryData();
 
     private static String getDownloadDirectoryData() {
 
