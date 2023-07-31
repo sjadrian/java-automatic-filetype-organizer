@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Config {
 
-    private String directoryConfig;
+    private final String directoryConfig;
 
     public Config() {
         this.directoryConfig = readConfigData();
