@@ -30,3 +30,6 @@ You will need:
 ![FileSorter2](https://github.com/sjadrian/java-file-sorter/assets/93874977/987f4447-5bed-4f48-94dd-ece5fbb017bb)
 ![FileSorter3](https://github.com/sjadrian/java-file-sorter/assets/93874977/abfd35dc-337a-45a2-a972-58e6db854631)
 
+## Future Plan
+Intead of just group the files based on its extension, my future plan is to group the files based on their media type (e.g, images, videos, audio, etc.).
+
