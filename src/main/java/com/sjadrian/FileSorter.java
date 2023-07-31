@@ -20,7 +20,7 @@ public class FileSorter {
         System.out.println("Download path = " + directoryPath);
 
         // Move each file based on its file type
-        Files.list(Paths.get(directoryPath)).filter(obj-> obj.toFile().isFile()).forEach(obj-> {
+        Files.list(Path.of(directoryPath)).filter(obj-> obj.toFile().isFile()).forEach(obj-> {
             try {
                 move(obj.toFile().getName());
             } catch (IOException e) {
@@ -35,7 +35,7 @@ public class FileSorter {
 
         // get the target directory path
         String targetPathString = directoryPath + "\\" + fileExtension.substring(1) + "\\";
-        Path targetPath = Paths.get(targetPathString);
+        Path targetPath = Path.of(targetPathString);
 
         // check if directory exist
         if (!Files.exists(targetPath)) {
@@ -47,12 +47,12 @@ public class FileSorter {
         }
 
         // rename the file if there's the same filename in target directory
-        String targetFileName = Files.exists(Paths.get(targetPathString + fileName))
+        String targetFileName = Files.exists(Path.of(targetPathString + fileName))
                 ? renameFile(fileName, fileExtension, targetPathString) : fileName;
 
         try {
             // move the file to its designated folder based on each type
-            Path temp = Files.move(Paths.get(directoryPath + fileName), Paths.get(targetPathString + targetFileName));
+            Path temp = Files.move(Path.of(directoryPath + fileName), Path.of(targetPathString + targetFileName));
 
         } catch (IOException e) {
             throw new RuntimeException(e);
