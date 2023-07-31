@@ -45,6 +45,4 @@ class ConfigTest {
         Path downloadPath = Path.of(downloadPathString);
         assertTrue(Files.exists(downloadPath));
     }
-
-
 }

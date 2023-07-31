@@ -97,5 +97,6 @@ class FileSorterTest {
 
         assertTrue(Files.exists(newNamePath));
         Files.deleteIfExists(newNamePath);
+        Files.deleteIfExists(targetPath);
     }
 }
