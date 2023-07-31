@@ -1,36 +1,23 @@
 package com.sjadrian;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Properties;
 
 public class FileSorter {
 
-    private final String downloadPath;
-
-    public FileSorter() {
-       this.downloadPath  = getDownloadDirectoryData();
-    }
-
-    private static String getDownloadDirectoryData() {
-        Properties properties = new Properties();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("config"))) {
-            properties.load(reader);
-        }  catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return properties.get("DOWNLOAD_PATH").toString();
+    private final String directoryPath;
+    public FileSorter(String directoryPath) {
+       this.directoryPath = directoryPath;
     }
 
     public void run() throws IOException {
         // Check Download Path
-        System.out.println("Download path = " + downloadPath);
+        System.out.println("Download path = " + directoryPath);
 
         // Move each file based on its file type
-        Files.list(Paths.get(downloadPath)).filter(obj-> obj.toFile().isFile()).forEach(obj-> move(obj.toFile().getName()));
+        Files.list(Paths.get(directoryPath)).filter(obj-> obj.toFile().isFile()).forEach(obj-> move(obj.toFile().getName()));
     }
 
     private void move(String fileName) {
@@ -38,7 +25,7 @@ public class FileSorter {
         String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
 
         // get the target directory path
-        String targetPathString = downloadPath + "\\" + fileExtension + "\\";
+        String targetPathString = directoryPath + "\\" + fileExtension + "\\";
         Path targetPath = Paths.get(targetPathString);
 
         // check if directory exist
@@ -52,7 +39,7 @@ public class FileSorter {
 
         try {
             // move the file to its designated folder based on each type
-            Path temp = Files.move(Paths.get(downloadPath + fileName), Paths.get(targetPathString  + fileName));
+            Path temp = Files.move(Paths.get(directoryPath + fileName), Paths.get(targetPathString  + fileName));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
