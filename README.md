@@ -1,4 +1,4 @@
-# Java File Sorter
+# Java Automatic File Type Organizer
 
 This is a Java application that organizes files in a specific directory based on the its extension.
 
