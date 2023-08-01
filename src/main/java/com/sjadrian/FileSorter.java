@@ -70,7 +70,8 @@ public class FileSorter {
 
         // get all matching fileNames
         List<String> fileNames = Files.list(Path.of(targetPath))
-                .map(obj -> obj.toFile().getName())
+                .map(Path::getFileName)
+                .map(Path::toString)
                 .filter(fileNameS -> fileNameS.matches(pattern))
                 .toList();
 
