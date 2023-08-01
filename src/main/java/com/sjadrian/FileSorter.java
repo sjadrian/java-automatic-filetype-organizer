@@ -47,7 +47,7 @@ public class FileSorter {
 
         // rename the file if there's the same filename in target directory
         String targetFileName = Files.exists(Path.of(targetPathString + fileName))
-                ? renameFile(fileName, fileExtension, targetPathString) : fileName;
+                ? renameFile(fileName) : fileName;
 
         try {
             // move the file to its designated folder based on each type
@@ -58,14 +58,15 @@ public class FileSorter {
         }
     }
 
-    private String renameFile(String fileName, String fileExtension, String targetPath) throws IOException {
+    private String renameFile(String fileName) throws IOException {
 
-        String fileNameNoExtension = fileName.substring(0, fileName.lastIndexOf("."));
+        // get the file information
+        String fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+        String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+        String targetPath = directoryPath + "\\" + fileExtension.substring(1) + "\\";
 
-        String pattern = String.format("%s(?: \\((\\d+)\\))?%s", Pattern.quote(fileNameNoExtension), Pattern.quote(fileExtension));
+        String pattern = String.format("%s(?: \\((\\d+)\\))?%s", Pattern.quote(fileNameWithoutExtension), Pattern.quote(fileExtension));
         Pattern regex = Pattern.compile(pattern);
-
-        int highestDuplicateIndex = 0;
 
         // get all matching fileNames
         List<String> fileNames = Files.list(Path.of(targetPath))
@@ -73,22 +74,22 @@ public class FileSorter {
                 .filter(fileNameS -> fileNameS.matches(pattern))
                 .toList();
 
+        int highestDuplicateIndex = 0;
+
         // get the index of each matching fileNames
         for (String file: fileNames) {
             Matcher matcher = regex.matcher(file);
             while (matcher.find()) {
-                if (matcher.group(1) != null) {
+                if (matcher.group(1) != null && Integer.parseInt(matcher.group(1)) > highestDuplicateIndex) {
                     // update the highest index
-                    if (Integer.parseInt(matcher.group(1)) > highestDuplicateIndex)  {
-                        highestDuplicateIndex = Integer.parseInt(matcher.group(1));
-                    }
+                    highestDuplicateIndex = Integer.parseInt(matcher.group(1));
                 }
             }
         }
         highestDuplicateIndex++;
 
-        // rename file
-        fileName = fileNameNoExtension + " ("  + highestDuplicateIndex + ")" + fileExtension;
+        // rename the duplicate file
+        fileName = fileNameWithoutExtension + " ("  + highestDuplicateIndex + ")" + fileExtension;
         return fileName;
     }
 }

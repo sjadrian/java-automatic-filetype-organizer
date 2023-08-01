@@ -14,7 +14,9 @@ class FileSorterTest {
     @Test
     void oldFileIsRemoved() throws IOException {
 
-        Config config = new Config();
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATH";
+        Config config = new Config(configFileName, directoryKey);
 
         String configPathString = config.getDirectoryConfig();
         String fileName = "testFile.txt";
@@ -40,7 +42,9 @@ class FileSorterTest {
     @Test
     void oldFileIsFoundInNewLocation() throws IOException {
 
-        Config config = new Config();
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATH";
+        Config config = new Config(configFileName, directoryKey);
 
         String configPathString = config.getDirectoryConfig();
         String fileName = "testFile.txt";
@@ -66,7 +70,9 @@ class FileSorterTest {
     @Test
     void sameFileNameInTargetDirectoryIsProperlyNamed() throws IOException {
 
-        Config config = new Config();
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATH";
+        Config config = new Config(configFileName, directoryKey);
 
         String configPathString = config.getDirectoryConfig();
         String fileName = "testFile.txt";

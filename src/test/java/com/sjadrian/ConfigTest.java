@@ -14,35 +14,58 @@ import static org.junit.jupiter.api.Assertions.*;
 class ConfigTest {
 
     @Test
-    void configFileShouldExist() {
-        Path configPath = Path.of("config");
-        System.out.println(configPath);
-        System.out.println(Files.exists(configPath));
-        assertTrue(Files.exists(configPath));
+    void validConfigFileNameAndDirectoryKeyShouldReturnValidDirectory() {
+
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATH";
+
+        Config config = new Config(configFileName, directoryKey);
+
+        assertNotNull(config.getDirectoryConfig());
+    }
+    @Test
+    void invalidConfigFileNameShouldReturnRunTimeException() {
+
+        String configFileName  = "confixg";
+        String directoryKey = "DOWNLOAD_PATH";
+
+        assertThrows(RuntimeException.class,
+                () -> {
+                    Config config = new Config(configFileName, directoryKey);
+        });
     }
 
     @Test
-    void configHasDOWNLOAD_PATHAsKey() {
-        Properties properties = new Properties();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("config"))) {
-            properties.load(reader);
-        }  catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String downloadPathString = properties.get("DOWNLOAD_PATH").toString();
-        assertNotNull(downloadPathString);
+    void configClassHasValidDirectoryKey() {
+
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATH";
+        Config config = new Config(configFileName, directoryKey);
+
+        assertNotNull(config.getDirectoryConfig());
     }
 
     @Test
-    void validDirectoryProvidedInConfigFile() {
-        Properties properties = new Properties();
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("config"))) {
-            properties.load(reader);
-        }  catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String downloadPathString = properties.get("DOWNLOAD_PATH").toString();
-        Path downloadPath = Path.of(downloadPathString);
-        assertTrue(Files.exists(downloadPath));
+    void invalidDirectoryKeyShouldReturnIllegalStateException() {
+
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATHX";
+
+        assertThrows(IllegalStateException.class,
+                () -> {
+                    Config config = new Config(configFileName, directoryKey);
+                });
+    }
+
+    @Test
+    void invalidDirectoryObtainedFromDirectoryKeyShouldReturnIllegalStateException() {
+
+        String configFileName  = "config";
+        String directoryKey = "DOWNLOAD_PATH_WITH_INVALID_DIRECTORY";
+
+        assertThrows(IllegalStateException.class,
+                () -> {
+                    Config config = new Config(configFileName, directoryKey);
+                });
     }
 }
