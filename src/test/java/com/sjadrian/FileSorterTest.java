@@ -48,7 +48,6 @@ class FileSorterTest {
     @Test
     void oldFileIsFoundInNewLocation() throws IOException {
 
-
         String directoryString = config.getDirectory();
 
         Path originalFile = Path.of(directoryString + fileName);
@@ -71,7 +70,7 @@ class FileSorterTest {
     }
 
     @Test
-    void sameFileNameInTargetDirectoryIsProperlyNamed() throws IOException {
+    void sameFileNameInTargetDirectoryIsNamedWithIndex1() throws IOException {
 
         String directoryString = config.getDirectory();
 
