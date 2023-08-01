@@ -9,7 +9,7 @@ public class Main {
         String configFileName  = "config";
         String directoryKey = "DOWNLOAD_PATH";
         Config config = new Config(configFileName, directoryKey);
-        FileSorter fileSorter = new FileSorter(config.getDirectoryConfig());
+        FileSorter fileSorter = new FileSorter(config.getDirectory());
         fileSorter.run();
     }
 }

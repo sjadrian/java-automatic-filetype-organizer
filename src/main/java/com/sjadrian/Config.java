@@ -9,18 +9,18 @@ import java.util.Properties;
 
 public class Config {
 
-    private final String directoryConfig;
+    private final String directory;
     private final String configFileName;
     private final String directoryKey;
 
     public Config(String configFileName, String directoryKey) {
         this.configFileName = configFileName;
         this.directoryKey = directoryKey;
-        this.directoryConfig = readConfigData();
+        this.directory = readConfigData();
     }
 
-    public String getDirectoryConfig() {
-        return directoryConfig;
+    public String getDirectory() {
+        return directory;
     }
 
     private String readConfigData() {
